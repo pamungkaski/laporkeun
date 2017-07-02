@@ -24,7 +24,10 @@ SECRET_KEY = '8uiamf4!%r&ftf7ut!_5ne_ur71#mt0a)s(x-oe^l5khyo0#o5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'laporkeun.herokuapp.com',
+    '127.0.0.1'
+]
 
 # Application definition
 
