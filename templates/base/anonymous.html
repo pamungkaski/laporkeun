@@ -1,0 +1,102 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet"
+          href="{% static 'm/css/materialize.min.css' %}"
+          media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<header>
+    <nav class="grey darken-3">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo" style="padding-left: 20px">laporkeun!</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="{% url 'member:creation' %}">Sign Up</a></li>
+                <li><a href="{% url 'member:login' %}">Sign In</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<main>
+    {% block content %}
+    {% endblock %}
+    <footer id="bantu" class="page-footer grey darken-1">
+        <div class="container">
+            <div class="row">
+                <div class="col m5 ">
+                    <h3>Contribute</h3>
+                    <p>
+                        Suspendisse in mi urna. Vestibulum at maximus
+                        dolor,
+                        a fermentum nisl. Nunc posuere magna ac dolor
+                        sodales facilisis. Phasellus quis metus odio.
+                        Duis
+                        consequat, arcu a sagittis ornare, libero purus
+                        sodales metus.
+                    </p>
+                    <a href="#" class="btn grey darken-2">
+                        Contribute
+                    </a>
+                </div>
+                <div class="col m5 ">
+                    <h3>Donate</h3>
+                    <p>
+                        Nullam dictum ipsum nec nisi rhoncus, vitae
+                        feugiat
+                        neque interdum. Aliquam erat volutpat. Nam eget
+                        tincidunt arcu. Cras pharetra est euismod lacus
+                        hendrerit venenatis. Vivamus iaculis pharetra
+                        ultrices.
+                    </p>
+                    <a href="#" class="btn grey darken-2">
+                        Donate
+                    </a>
+                </div>
+                <div class="col m2 ">
+                    <h3>Contact</h3>
+                    <button class="btn blue">Facebook</button>
+                    <br>
+                    <br>
+                    <button class="btn light-blue">Twitter</button>
+                    <br>
+                    <br>
+                    <button class="btn red">Google+</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright black">
+            <div class="container center-align">
+                with love &copy; 2017 Satria H R Harsono
+            </div>
+        </div>
+    </footer>
+</main>
+
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript"
+        src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+{#<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>#}
+<script type="text/javascript"
+        src="{% static 'm/js/materialize.min.js' %}"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

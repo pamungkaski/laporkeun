@@ -1,0 +1,22 @@
+{% extends 'base/authenticated.html' %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            <p class="flow-text">Are you really going to delete this project?</p>
+            <br>
+            <div class="row">
+                <div class="col m3">
+                    <a href="{% url 'home' %}" class="btn red">Cancel</a>
+                </div>
+                <div class="col m3">
+                    <input type="submit" value="Yes sir" class="btn green" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+{% endblock %}
+

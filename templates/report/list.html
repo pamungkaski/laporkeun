@@ -1,0 +1,44 @@
+{% if not object_list %}
+    <p>Unfortunately, you don't have any report yet</p>
+{% else %}
+    <div class="row">
+        {% for object in object_list|dictsortreversed:'created' %}
+            <div class="col m12">
+                <div class="card grey lighten-4">
+                    <div class="card-content">
+                        <span class="card-title">
+                            <div class="row">
+                                <div class="col m5">
+                                    {{ object.created }}
+                                </div>
+                                <div class="col m7 right-align">
+                                    <i>by</i> {{ object.reporter.get_full_name }}
+                                </div>
+                            </div>
+                        </span>
+                        <hr>
+                        <div>
+                            <strong>done</strong> {{ object.done }}
+                        </div>
+                        <br>
+                        <div>
+                            <strong>problem</strong> {{ object.problem }}
+                        </div>
+                        <br>
+                        <div>
+                            <strong>todo next</strong> {{ object.todo }}
+                        </div>
+                        <hr>
+                        <div>
+                            <a href="{% url 'project:detail' pk=object.task.project.pk %}"
+                               >{{ object.task.project.name }}</a>
+                            >
+                            <a href="{% url 'task:detail' pk=object.task.pk %}"
+                               >{{ object.task.name }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

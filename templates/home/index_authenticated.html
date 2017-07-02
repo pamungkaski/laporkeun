@@ -1,0 +1,62 @@
+{% extends 'base/authenticated.html' %}
+
+{% block nav-content %}
+    <div class="nav-content">
+        <div id="breadcrumb-container" class="container">
+            <a href="{% url 'home' %}" id="breadcrumb-item"
+               class="breadcrumb">Home</a>
+        </div>
+    </div>
+    <style>
+        #breadcrumb-container {
+            height: 45px;
+        }
+
+        #breadcrumb-item {
+            line-height: 45px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="fixed-action-btn">
+        <a href="{% url 'project:creation' %}"
+           class="btn-floating btn-large pulse red tooltipped   "
+           data-position="left" data-delay="50"
+           data-tooltip="START PROJECT for your small team"
+        >
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+
+    <br>
+    <section id="project" class="container">
+        <div class="row">
+            <div class="col m9">
+                <h4 class="grey-text text-darken-2">Project Section</h4>
+            </div>
+        </div>
+        <hr>
+        <div id="project-list"></div>
+    </section>
+    <section id="task" class="container">
+        <h4 class="grey-text text-darken-2">Task Section</h4>
+        <hr>
+        <div id="task-list"></div>
+    </section>
+    <section id="report" class="container">
+        <h4 class="grey-text text-darken-2">Report Section</h4>
+        <hr>
+        <div id="report-list"></div>
+    </section>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $("#task-list").load("{% url 'task:assigned' %}");
+        $("#project-list").load("{% url 'project:member' %}");
+        $("#report-list").load("{% url 'report:reporter' %}");
+    </script>
+{% endblock %}

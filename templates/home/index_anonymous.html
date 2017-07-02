@@ -1,0 +1,21 @@
+{% extends 'base/anonymous.html' %}
+
+{% block content %}
+    <div class="parallax-container">
+        <div class="parallax grey darken-4"></div>
+        <div class="container right-align white-text">
+            <br><br><br><br><br><br><br>
+            <h2>laporkeun!</h2>
+            <p class="flow-text">Project report for your small team</p>
+            <p>Please have your account <a href="{% url 'member:login' %}">logged in</a>
+                or <a href="{% url 'member:creation' %}">create account</a> to get access</p>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.parallax').parallax();
+        });
+    </script>
+{% endblock %}

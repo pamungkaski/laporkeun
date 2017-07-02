@@ -1,0 +1,37 @@
+{% extends 'base/authenticated.html' %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        {{ form.errors }}
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <input name="{{ form.name.name }}"
+                           placeholder="Task name, something you call it"
+                           id="{{ form.name.id_for_label }}"
+                           type="text" class="validate"
+                            {% if form.name.value %}
+                           value="{{ form.name.value }}"
+                            {% endif %}
+                    >
+                    {{ form.name.label_tag }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="{{ form.description.name }}"
+                              id="{{ form.description.id_for_label }}"
+                              class="materialize-textarea"
+                              placeholder="Description for your task so people will recognized it quickly"
+                    >{% if form.description.value %}{{ form.description.value }}{% endif %}</textarea>
+                    {{ form.description.label_tag }}
+                </div>
+            </div>
+            <input type="submit" value="save" class="btn grey darken-4">
+        </form>
+    </div>
+
+{% endblock %}
+

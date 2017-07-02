@@ -1,0 +1,37 @@
+{{ title }}
+{% if not object_list %}
+    <p>Unfortunately, there is no assigned task</p>
+{% else %}
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col l4 m6 s12">
+                <div class="card grey lighten-1">
+                    <div class="card-content grey-text text-darken-3">
+                        <span class="card-title activator">{{ object.name }}<i
+                                class="material-icons right">more_vert</i></span>
+                        <p>{{ object.description }}</p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">task detail<i
+                                class="material-icons right">close</i></span>
+                        <p>Created at {{ object.created }}</p>
+                        <p>Updated at {{ object.updated }}</p>
+                        <p>Assigned to
+                            {% if object.assigned.count > 0 %}
+                                {% for assignee in object.assigned.all %}
+                                    {{ assignee }}
+                                {% endfor %}
+                            {% else %}
+                                none
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a href="{% url 'task:detail' pk=object.pk %}"
+                           class="btn btn-flat">Go To</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

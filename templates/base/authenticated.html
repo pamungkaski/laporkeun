@@ -1,0 +1,86 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>laporkeun!</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet"
+          href="{% static 'm/css/materialize.min.css' %}"
+          media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+
+<header>
+
+    <nav class="nav-extended grey darken-3">
+        <div class="nav-wrapper">
+            <a href="{% url 'home' %}" class="left" style="padding-left: 20px">laporkeun!</a>
+            <a href="#" class="brand-logo center">{{ title }}</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {% block nav-wrapper %}
+                {% endblock %}
+{#                <ul id="member-dropdown" class="dropdown-content">#}
+                    <li>
+                        <a href="{% url 'member:update' %}">Profile</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'member:password_change' %}">Change
+                            Password</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="{% url 'member:logout' %}">Logout</a>
+                    </li>
+{#                </ul>#}
+{#                <li><a class="dropdown-button" href="#"#}
+{#                       data-activates="member-dropdown">Member</a>#}
+{#                </li>#}
+            </ul>
+        </div>
+        {% block nav-content %}
+        {% endblock %}
+    </nav>
+</header>
+
+<main>
+    <div style="min-height: 700px">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer class="page-footer white">
+        <div class="footer-copyright black">
+            <div class="container center-align">
+                with love &copy; 2017 Satria H R Harsono
+            </div>
+        </div>
+    </footer>
+</main>
+
+{% block modals %}
+
+{% endblock %}
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript"
+        src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+{#<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>#}
+<script type="text/javascript"
+        src="{% static 'm/js/materialize.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown-button").dropdown();
+    })
+</script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

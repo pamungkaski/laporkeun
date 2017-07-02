@@ -1,0 +1,49 @@
+{{ title }}
+{% if not object_list %}
+    <p>Unfortunately, there is no project you are member</p>
+{% else %}
+    <div class="row">
+        {% for object in object_list %}
+            <div class="col l4 m6 s12">
+                <div class="card grey">
+                    <div class="card-content white-text">
+                    <span class="card-title activator">{{ object.name }}<i
+                            class="material-icons right">more_vert</i></span>
+                        <p>{{ object.description }}</p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">task detail<i
+                                class="material-icons right">close</i></span>
+                        <p>Created at {{ object.created }}</p>
+                        <p>Updated at {{ object.updated }}</p>
+                        <p>Project member
+                            {% if object.member.count > 0 %}
+                                {% for member in object.member.all %}
+                                    <strong>{{ member }}</strong>
+                                {% endfor %}
+                            {% else %}
+                                none
+                            {% endif %}
+                        </p>
+                        <p>Administered by
+                            {% if object.admin.count > 0 %}
+                                {% for admin in object.admin.all %}
+                                    <strong>{{ admin }}</strong>
+                                {% endfor %}
+                            {% else %}
+                                none
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="card-action right-align">
+                        <a href="{% url 'project:detail' pk=object.pk %}"
+                           class="btn btn-flat">Go to</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endif %}
+

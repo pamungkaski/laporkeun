@@ -1,0 +1,46 @@
+{% extends 'base/authenticated.html' %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        {{ form.errors }}
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="{{ form.done.name }}"
+                              id="{{ form.done.id_for_label }}"
+                              class="materialize-textarea"
+                              placeholder="What you have done until now?"
+                    >{% if form.done.value %}
+                        {{ form.done.value }}{% endif %}</textarea>
+                    {{ form.done.label_tag }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="{{ form.problem.name }}"
+                              id="{{ form.problem.id_for_label }}"
+                              class="materialize-textarea"
+                              placeholder="What problem do you got so far?"
+                    >{% if form.problem.value %}
+                        {{ form.problem.value }}{% endif %}</textarea>
+                    {{ form.problem.label_tag }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea name="{{ form.todo.name }}"
+                              id="{{ form.todo.id_for_label }}"
+                              class="materialize-textarea"
+                              placeholder="Any plans to do next?"
+                    >{% if form.todo.value %}
+                        {{ form.todo.value }}{% endif %}</textarea>
+                    {{ form.todo.label_tag }}
+                </div>
+            </div>
+            <input type="submit" value="save" class="btn grey darken-4">
+        </form>
+    </div>
+
+{% endblock %}

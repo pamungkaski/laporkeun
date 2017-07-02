@@ -1,0 +1,118 @@
+{% extends 'base/authenticated.html' %}
+
+{% block nav-content %}
+    <div class="nav-content">
+        <div id="breadcrumb-container" class="container">
+            <a href="{% url 'home' %}" id="breadcrumb-item"
+               class="breadcrumb">Home</a>
+            <a href="{% url 'project:detail' pk=object.pk %}"
+               id="breadcrumb-item"
+               class="breadcrumb">{{ object.name }}</a>
+        </div>
+    </div>
+    <style>
+        #breadcrumb-container {
+            height: 45px;
+        }
+
+        #breadcrumb-item {
+            line-height: 45px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    {% if request.user in object.admin.all %}
+        <div class="fixed-action-btn vertical">
+            <a class="btn-floating btn-large red">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li>
+                    <a href="{% url 'project:delete' pk=object.pk %}"
+                       class="btn-floating red tooltipped"
+                       data-position="left" data-delay="50"
+                       data-tooltip="DELETE current project and its task and its report"
+                    >
+                        <i class="material-icons">delete</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'project:edit_member' pk=object.pk %}"
+                       class="btn-floating blue tooltipped"
+                       data-position="left" data-delay="50"
+                       data-tooltip="EDIT MEMBERSHIP of this project"
+                    >
+                        <i class="material-icons">edit</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'project:edit_admin' pk=object.pk %}"
+                       class="btn-floating yellow tooltipped"
+                       data-position="left" data-delay="50"
+                       data-tooltip="PROMOTE ADMIN of this project"
+                    >
+                        <i class="material-icons">edit</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'project:edit' pk=object.pk %}"
+                       class="btn-floating grey tooltipped"
+                       data-position="left" data-delay="50"
+                       data-tooltip="EDIT project name and description"
+                    >
+                        <i class="material-icons">edit</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'task:creation' pk_project=object.pk %}"
+                       class="btn-floating green tooltipped"
+                       data-position="left" data-delay="50"
+                       data-tooltip="ADD TASK for this project"
+                    >
+                        <i class="material-icons">add</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+    <section class="container">
+        <h3>{{ object.name }}</h3>
+        <hr>
+        <div>
+            {% if object.description == "" %}
+                <p class="flow-text">
+                    Wanna get done some task? Get start right now! <a
+                        href="{% url 'task:creation' pk_project=object.pk %}">Add
+                    Task</a>
+                </p>
+            {% else %}
+                {{ object.description }}
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="container">
+        <h4 class="grey-text text-darken-2">Task List</h4>
+        <hr>
+        <div id="task"></div>
+    </section>
+
+
+    <section class="container">
+        <h4 class="grey-text text-darken-2">Recent Report</h4>
+        <hr>
+        <div id="report"><p>Currently this is unavailable</p></div>
+    </section>
+{% endblock %}
+
+{% block script %}
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-3.2.0.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#task").load("{% url 'task:project' pk_project=object.pk %}");
+        })
+    </script>
+{% endblock %}

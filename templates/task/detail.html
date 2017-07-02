@@ -1,0 +1,108 @@
+{% extends 'base/authenticated.html' %}
+
+{% block nav-content %}
+    <div class="nav-content">
+        <div id="breadcrumb-container" class="container">
+            <a href="{% url 'home' %}" id="breadcrumb-item"
+               class="breadcrumb">Home</a>
+            <a href="{% url 'project:detail' pk=object.project.pk %}"
+               id="breadcrumb-item"
+               class="breadcrumb">{{ object.project.name }}</a>
+            <a href="#" id="breadcrumb-item"
+               class="breadcrumb">{{ object.name }}</a>
+        </div>
+    </div>
+    <style>
+        #breadcrumb-container {
+            height: 45px;
+        }
+
+        #breadcrumb-item {
+            line-height: 45px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if request.user in object.assigned.all or request.user in object.project.admin.all %}
+        <div class="fixed-action-btn vertical">
+            <a class="btn-floating btn-large red">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                {% if request.user in object.project.admin.all %}
+                    <li>
+                        <a href="{% url 'task:delete' pk=object.pk %}"
+                           class="btn-floating red tooltipped"
+                           data-position="left" data-delay="50"
+                           data-tooltip="DELETE current task and its report"
+                        >
+                            <i class="material-icons">delete</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'task:assign' pk=object.pk %}"
+                           class="btn-floating blue tooltipped"
+                           data-position="left" data-delay="50"
+                           data-tooltip="ASSIGN member to this task"
+                        >
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'task:edit' pk=object.pk %}"
+                           class="btn-floating grey tooltipped"
+                           data-position="left" data-delay="50"
+                           data-tooltip="EDIT task name and description"
+                        >
+                            <i class="material-icons">edit</i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if request.user in object.assigned.all %}
+                    <li>
+                        <a href="{% url 'report:creation' pk_task=object.pk %}"
+                           class="btn-floating green tooltipped"
+                           data-position="left" data-delay="50"
+                           data-tooltip="MAKE REPORT for this task"
+                        >
+                            <i class="material-icons">add</i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+    <section class="container">
+        <h3>{{ object.name }}</h3>
+        <hr>
+        <div class="flow-text">
+            {% if object.description == "" %}
+                <p class="flow-text">
+                    Gotta report something? Here you go <a
+                        href="{% url 'report:creation' pk_task=object.pk %}">create
+                    report</a>
+                </p>
+            {% else %}
+                {{ object.description }}
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="container">
+        <h4 class="grey-text text-darken-2">Recent Report</h4>
+        <hr>
+        <div id="report"></div>
+    </section>
+
+{% endblock %}
+
+{% block script %}
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-3.2.0.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#report").load("{% url 'report:task' pk_task=object.pk %}")
+        })
+    </script>
+{% endblock %}
